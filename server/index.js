@@ -9,12 +9,14 @@ dotenv.config();
 // Initialize the app 
 const app = express()
 
-app.use('/posts',postRoutes);
-
 // Setup Body Parser to send our requests
 app.use(bodyParser.json({limit:"30mb", extended: true}));
 app.use(bodyParser.urlencoded({limit:"30mb", extended: true}));
 app.use(cors());
+
+// every route in this starts with /posts
+app.use('/posts',postRoutes);
+
 const startServer = async() => {
     try{
         const PORT = process.env.PORT || 8080;
