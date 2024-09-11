@@ -1,5 +1,5 @@
 import { styled } from '@mui/material/styles';
-import { AppBar, Typography } from '@mui/material';
+import { AppBar, Typography, Grid } from '@mui/material';
 
 // we are creating styled component directly so we can use them directly in js file instead of applying classes
 export const StyledAppBar = styled(AppBar)(({ theme }) => ({
@@ -17,4 +17,10 @@ export const StyledTypography = styled(Typography)(({ theme }) => ({
 
 export const StyledImg = styled('img')(({ theme }) => ({
   marginLeft: '15px',
+}));
+
+export const StyledMainContainer = styled(Grid)(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    flexDirection: 'column-reverse'
+  }
 }));

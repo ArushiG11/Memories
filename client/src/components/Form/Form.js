@@ -1,32 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Typography, TextField, Button } from '@mui/material';
 import FileBase from 'react-file-base64';
 import { StyledRoot, StyledPaper, StyledForm, StyledFileInput, StyledSubmitButton } from './styles'; // Adjust the import path as needed
-import { useDispatch } from 'react-redux';
-import { createPost } from '../../actions/posts';
+import { useDispatch, useSelector } from 'react-redux';
+import { createPost, updatePost } from '../../actions/posts';
 
-const Form = () => {
+const Form = ({currentId, setCurrentId}) => {
   const dispatch = useDispatch();
 //   state
   const [postData, setPostData] = useState(
       {creator:'', title: '', message: '', tags: '', selectedFile: ''}
   )
-
+  const post = useSelector((state) => currentId? state.posts.find((p) => p._id === currentId): null);
    // Your state and handler functions (e.g., postData, setPostData, handleSubmit, clear) should be defined here
-   const handleSubmit = (e) => {
+
+  useEffect(()=> {
+    if (post) setPostData(post);
+  },[currentId, post])
+
+  const handleSubmit = (e) => {
     e.preventDefault(); //not to get refresh in the browser
-    dispatch(createPost(postData));
+    if(currentId){
+      dispatch(updatePost(currentId, postData));
+    }
+    else{
+    dispatch(createPost(postData));}
+    clear();
   }
 
   const clear = () => {
-
+    setCurrentId(null);
+    setPostData({creator:'', title: '', message: '', tags: '', selectedFile: ''});
   }
   
   return (
     <StyledRoot>
       <StyledPaper>
         <StyledForm autoComplete="off" noValidate onSubmit={handleSubmit}>
-          <Typography variant="h6">Creating a Memory</Typography>
+          <Typography variant="h6">{currentId? 'Creating': 'Editing'} a Memory</Typography>
           {/* value over here is gonna be stored in a postdata object in the state  */}
           <TextField 
             name="creator" 

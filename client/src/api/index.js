@@ -1,6 +1,10 @@
 import axios from 'axios'; //to make api calls
 
-const API = axios.create({ baseURL: 'http://localhost:8080' });
+const url = 'http://localhost:8080/posts';
 
-export const getPosts = () => API.get('/posts');
-export const createPost = (newPost) => API.post('/posts', newPost);
+export const fetchPosts = () => axios.get(url);
+export const createPost = (newPost) => axios.post(url, newPost);
+export const updatePost = (id, updatedPost) => axios.patch(`${url}/${id}`, updatedPost);
+export const deletePost = (id) => axios.delete(`${url}/${id}`);
+export const likePost = (id) => axios.patch(`${url}/${id}/likePost`);
+

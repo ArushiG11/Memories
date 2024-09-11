@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'; //modeling library for mongodb to make madels easily
+import mongoose from 'mongoose'; //modeling library for mongodb to make models easily
 
 const connectDB = (CONNECTION_URL) => {
 

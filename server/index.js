@@ -21,7 +21,7 @@ const startServer = async() => {
     try{
         const PORT = process.env.PORT || 8080;
 // Connect server applicaton with database. We are using Mongodb (Atlas version(they host our db on their server))
-// garushi567 4lQpkFlmslKnv00y
+
         connectDB(process.env.CONNECTION_URL);
         app.listen(PORT, () => console.log(`Server running on port: ${PORT}`))
     } catch(error) {
